@@ -1,0 +1,30 @@
+{
+  "name": "webpreneur.hu",
+  "version": "1.0.0",
+  "description": "Developer Portfolio Site of Zsolt Gulyás, aka \"webpreneur\"",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webpreneur/webpreneur.hu.git"
+  },
+  "keywords": [
+    "portfolio",
+    "developer",
+    "gulyás",
+    "zsolt",
+    "webpreneur",
+    "frontend"
+  ],
+  "author": "Gulyás Zsolt, aka \"webpreneur\"",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/webpreneur/webpreneur.hu/issues"
+  },
+  "homepage": "https://github.com/webpreneur/webpreneur.hu#readme",
+  "dependencies": {
+    "@polymer/iron-overlay-behavior": "^3.0.3"
+  }
+}
