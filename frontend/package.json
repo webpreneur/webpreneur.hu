@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:webpreneur-hu": "node dist/webpreneur-hu/server/server.mjs"
+    "serve:ssr:webpreneur-hu": "node dist/frontend/server/server.mjs"
   },
   "prettier": {
     "printWidth": 100,
@@ -23,14 +23,21 @@
   },
   "private": true,
   "dependencies": {
+    "@angular/animations": "^20.2.0",
+    "@angular/cdk": "20.2.1",
     "@angular/common": "^20.2.0",
     "@angular/compiler": "^20.2.0",
     "@angular/core": "^20.2.0",
     "@angular/forms": "^20.2.0",
+    "@angular/material": "20.2.1",
     "@angular/platform-browser": "^20.2.0",
     "@angular/platform-server": "^20.2.0",
     "@angular/router": "^20.2.0",
     "@angular/ssr": "^20.2.1",
+    "@coreui/angular": "~5.5.11",
+    "@coreui/coreui": "~5.4.2",
+    "@coreui/icons-angular": "~5.5.11",
+    "@popperjs/core": "~2.11.8",
     "express": "^5.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"

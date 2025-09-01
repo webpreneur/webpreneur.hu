@@ -1,9 +1,10 @@
 import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Shell } from './core/layout/shell/shell';
+
 
 @Component({
   selector: 'webpreneur-root',
-  imports: [RouterOutlet],
+  imports: [Shell],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
