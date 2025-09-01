@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Output } from '@angular/core';
+import { ReactiveFormsModule, NonNullableFormBuilder, Validators } from '@angular/forms';
 import {
   ButtonDirective,
   FormCheckComponent,
@@ -14,6 +14,7 @@ import {
 @Component({
   selector: 'webpreneur-signup-form',
   imports: [
+    ReactiveFormsModule,
     FormDirective,
     FormLabelDirective,
     FormControlDirective,
@@ -24,6 +25,20 @@ import {
     FormCheckLabelDirective,
   ],
   templateUrl: './signup-form.html',
-  styleUrl: './signup-form.scss',
+  styleUrls: ['./signup-form.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SignupForm {}
+export class SignupForm {
+  private readonly fb = inject(NonNullableFormBuilder);
+  @Output() readonly submitted = new EventEmitter<{ email: string; password: string }>();
+
+  readonly form = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(8)]],
+  });
+
+  submit(): void {
+    if (this.form.invalid) { return; }
+    this.submitted.emit(this.form.getRawValue());
+  }
+}
