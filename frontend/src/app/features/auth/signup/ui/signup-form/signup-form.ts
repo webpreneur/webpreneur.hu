@@ -14,15 +14,15 @@ import {
 @Component({
   selector: 'webpreneur-signup-form',
   imports: [
-    ReactiveFormsModule,
-    FormDirective,
-    FormLabelDirective,
-    FormControlDirective,
-    FormTextDirective,
     ButtonDirective,
     FormCheckComponent,
     FormCheckInputDirective,
     FormCheckLabelDirective,
+    FormControlDirective,
+    FormDirective,
+    FormLabelDirective,
+    FormTextDirective,
+    ReactiveFormsModule,
   ],
   templateUrl: './signup-form.html',
   styleUrls: ['./signup-form.scss'],
@@ -35,6 +35,7 @@ export class SignupForm {
   readonly form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(8)]],
+    terms: [false, [Validators.requiredTrue]],
   });
 
   submit(): void {
