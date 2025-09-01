@@ -1,5 +1,15 @@
 <c-container>
-  <webpreneur-signup-form (submitted)="onSubmitted($event)"></webpreneur-signup-form>
-  @if (loading()) { <div>Creating user…</div> }
-  @if (error()) { <div class="text-danger">{{ error() }}</div> }
+    <c-row>
+        <h2>Regisztráció</h2>
+    </c-row>
+    <c-row>
+        @if (loading()) { <div>Felhasználó létrehozása…</div> }
+        @if (success()) {
+            <c-alert color="success">{{ success() }}</c-alert>
+        }
+        @if (error()) { <div class="text-danger">{{ error() }}</div> }
+    </c-row>
+    <c-row>
+        <webpreneur-signup-form (submitted)="onSubmitted($event)"></webpreneur-signup-form>
+    </c-row>
 </c-container>

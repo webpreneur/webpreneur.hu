@@ -1,16 +1,17 @@
 <form cForm [formGroup]="form" (ngSubmit)="submit()" novalidate>
   <div class="mb-3">
-    <label cLabel for="inputEmail-1">Email address</label>
+    <label cLabel for="inputEmail-1">Email címed</label>
     <input cFormControl id="inputEmail-1" type="email" formControlName="email" autocomplete="email" name="email"/>
-    <div cFormText>We'll never share your email with anyone else</div>
+    <div cFormText>Nem osztjuk meg mással az email címed, mi is utáljuk a levélszemetet</div>
   </div>
   <div class="mb-3">
-    <label cLabel for="inputPassword-1">Password</label>
+    <label cLabel for="inputPassword-1">Jelszó</label>
     <input cFormControl id="inputPassword-1" type="password" formControlName="password" autocomplete="new-password" name="password" />
+    <div cFormText>Legalább 8 karakter, kisbetű, nagybetű, szám és speciális karakter</div>
   </div>
   <c-form-check class="mb-3">
     <input cFormCheckInput id="checkMeOut-1" type="checkbox" formControlName="terms" />
-    <label cFormCheckLabel for="checkMeOut-1">Check me out</label>
+    <label cFormCheckLabel for="checkMeOut-1">Elfogadom a feltételeket</label>
   </c-form-check>
-  <button cButton color="primary" type="submit" [disabled]="form.invalid">Create account</button>
+  <button cButton color="primary" type="submit" [disabled]="form.invalid" shape="rounded-pill">Regisztráció</button>
 </form>
