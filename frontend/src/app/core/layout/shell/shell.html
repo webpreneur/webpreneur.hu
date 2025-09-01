@@ -1,3 +1,17 @@
-<webpreneur-header />
-<router-outlet />
-<webpreneur-footer />
+<c-container fluid>
+    <c-row [gutter]="2">
+        <c-col>
+            <webpreneur-header />
+        </c-col>
+    </c-row>
+    <c-row [gutter]="2">
+        <c-col>
+            <router-outlet />
+        </c-col>
+    </c-row>
+    <c-row [gutter]="2">
+        <c-col>
+            <webpreneur-footer />
+        </c-col>
+    </c-row>
+</c-container>
