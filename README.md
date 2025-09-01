@@ -10,3 +10,25 @@ Ez a repository Gulyás Zsolt (webpreneur) személyes portfólió weboldalának 
 
 Gulyás Zsolt (webpreneur)
 Projekt Link: [https://github.com/webpreneur/webpreneur.hu](https://github.com/webpreneur/webpreneur.hu)
+
+## Tech Stack
+
+### Frontend
+
+- Angular
+
+### Backend
+
+- NestJS
+
+### Database
+
+- Postgres
+
+#### Provider
+
+- Supabase
+
+#### ORM
+
+- Prisma
