@@ -1,0 +1,15 @@
+<c-container>
+    <c-row>
+        <h2>Bejelentkezés</h2>
+    </c-row>
+    <c-row>
+        @if (loading()) { <div>Bejelentkezés…</div> }
+        @if (success()) {
+            <c-alert color="success">{{ success() }}</c-alert>
+        }
+        @if (error()) { <div class="text-danger">{{ error() }}</div> }
+    </c-row>
+    <c-row>
+        <webpreneur-login-form (submitted)="onSubmitted($event)"></webpreneur-login-form>
+    </c-row>
+</c-container>

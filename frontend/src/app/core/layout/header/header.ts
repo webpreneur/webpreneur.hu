@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import {
   ButtonDirective,
   CollapseDirective,
@@ -20,6 +21,7 @@ import {
 @Component({
   selector: 'webpreneur-header',
   imports: [
+    RouterLink,
     ButtonDirective,
     CollapseDirective,
     ContainerComponent,

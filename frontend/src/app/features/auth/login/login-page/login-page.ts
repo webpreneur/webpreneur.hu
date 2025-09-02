@@ -1,17 +1,17 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { ContainerComponent, AlertComponent, RowComponent } from '@coreui/angular';
 
-import { SignupForm } from '../ui/signup-form/signup-form';
+import { LoginForm } from '../ui/login-form/login-form';
 import { Users } from '../../data-access/users';
 
 @Component({
-  selector: 'webpreneur-signup-page',
-  imports: [SignupForm, ContainerComponent, AlertComponent, RowComponent],
-  templateUrl: './signup-page.html',
-  styleUrl: './signup-page.scss',
+  selector: 'webpreneur-login-page',
+  imports: [LoginForm, ContainerComponent, AlertComponent, RowComponent],
+  templateUrl: './login-page.html',
+  styleUrl: './login-page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SignupPage {
+export class LoginPage {
   private readonly users = inject(Users);
   readonly loading = signal(false);
   readonly error = signal<string | null>(null);
@@ -21,16 +21,16 @@ export class SignupPage {
     this.loading.set(true);
     this.error.set(null);
     this.success.set(null);
-    this.users.createUser(credentials).subscribe({
+    this.users.loginUser(credentials).subscribe({
       next: () => {
         this.loading.set(false);
-        this.success.set('Account created successfully. You can now sign in.');
+        this.success.set('Sikeres bejelentkezés');
       },
       error: (err: unknown) => {
         const message =
           (err as { error?: { message?: string }; message?: string }).error?.message ??
           (err as { message?: string }).message ??
-          'Signup failed';
+          'Bejelentkezés sikertelen';
         this.error.set(message);
         this.loading.set(false);
       },

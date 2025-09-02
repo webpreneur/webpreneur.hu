@@ -14,4 +14,8 @@ export class Users {
   createUser(data: { email: string; password: string }): Observable<{ id: string; email: string }> {
     return this.http.post<{ id: string; email: string }>(`${this.apiBaseUrl}/users`, data);
   }
+
+  loginUser(credentials: { email: string; password: string }): Observable<{ token: string; user: { id: string; email: string } }> {
+    return this.http.post<{ token: string; user: { id: string; email: string } }>(`${this.apiBaseUrl}/auth/login`, credentials);
+  }
 }
