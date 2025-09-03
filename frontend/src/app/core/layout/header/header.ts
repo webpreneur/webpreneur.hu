@@ -1,46 +1,54 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import {
-  ButtonDirective,
+  AvatarComponent,
   CollapseDirective,
   ContainerComponent,
   DropdownComponent,
   DropdownItemDirective,
   DropdownMenuDirective,
   DropdownToggleDirective,
-  FormControlDirective,
-  FormDirective,
   NavbarBrandDirective,
   NavbarComponent,
   NavbarNavComponent,
   NavbarTogglerDirective,
   NavItemComponent,
-  NavLinkDirective
+  NavLinkDirective,
 } from '@coreui/angular';
+
+import { IconDirective, IconSetService } from '@coreui/icons-angular';
+import { cilAccountLogout, cilContact } from '@coreui/icons';
 
 @Component({
   selector: 'webpreneur-header',
+  providers: [IconSetService],
   imports: [
-    RouterLink,
-    ButtonDirective,
+    AvatarComponent,
     CollapseDirective,
     ContainerComponent,
     DropdownComponent,
     DropdownItemDirective,
     DropdownMenuDirective,
     DropdownToggleDirective,
-    FormControlDirective,
-    FormDirective,
+    IconDirective,
+    NavItemComponent,
+    NavLinkDirective,
     NavbarBrandDirective,
     NavbarComponent,
     NavbarNavComponent,
     NavbarTogglerDirective,
-    NavItemComponent,
-    NavLinkDirective
-  ],
+    RouterLink,
+],
   templateUrl: './header.html',
   styleUrl: './header.scss'
 })
 export class Header {
+  #iconSet = inject(IconSetService);
 
+  constructor() {
+    this.#iconSet.icons = {
+      cilAccountLogout,
+      cilContact,
+    };
+  }
 }

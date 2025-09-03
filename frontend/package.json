@@ -36,6 +36,7 @@
     "@angular/ssr": "^20.2.1",
     "@coreui/angular": "~5.5.11",
     "@coreui/coreui": "~5.4.2",
+    "@coreui/icons": "^3.0.1",
     "@coreui/icons-angular": "~5.5.11",
     "@popperjs/core": "~2.11.8",
     "express": "^5.1.0",

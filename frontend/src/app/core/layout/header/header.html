@@ -1,39 +1,48 @@
 <c-navbar colorScheme="light" expand="lg" class="bg-light">
-    <c-container fluid>
-      <a cNavbarBrand href="/" target="_blank">
-        webpreneur.hu
-      </a>
-      <button [cNavbarToggler]="collapseRef"></button>
-      <div #collapseRef="cCollapse" navbar cCollapse>
-        <c-navbar-nav class="me-auto mb-2 mb-lg-0">
-          <c-nav-item>
-            <a cNavLink [active]>Home</a>
-          </c-nav-item>
-          <c-nav-item>
-            <a cNavLink>Oldalaink</a>
-          </c-nav-item>
-          <c-dropdown variant="nav-item" [popper]="false">
-            <a cDropdownToggle cNavLink>Dropdown</a>
-            <ul cDropdownMenu>
-              <li><button cDropdownItem>Action</button></li>
-              <li><button cDropdownItem>Another action</button></li>
-              <li><button cDropdownItem>Something else here</button></li>
-            </ul>
-          </c-dropdown>
-          <c-nav-item>
-            <a cNavLink disabled class="d-block d-lg-none d-xl-block">Disabled</a>
-          </c-nav-item>
-          <c-nav-item>
-            <a cNavLink routerLink="/auth/signup">Regisztráció</a>
-          </c-nav-item>
-          <c-nav-item>
-            <a cNavLink routerLink="/auth/login">Bejelentkezés</a>
-          </c-nav-item>
-        </c-navbar-nav>
-        <form cForm class="d-flex" role="search">
-          <input cFormControl type="search" placeholder="Search" aria-label="Search" class="me-2">
-          <button cButton color="success" variant="outline">Search</button>
-        </form>
-      </div>
-    </c-container>
-  </c-navbar>
+  <c-container fluid>
+    <a cNavbarBrand href="/" target="_blank"> webpreneur.hu </a>
+    <button [cNavbarToggler]="collapseRef"></button>
+    <div #collapseRef="cCollapse" navbar cCollapse>
+      <c-navbar-nav class="me-auto mb-2 mb-lg-0">
+        <c-nav-item>
+          <a cNavLink [active]>Home</a>
+        </c-nav-item>
+        <c-nav-item>
+          <a cNavLink>Oldalaink</a>
+        </c-nav-item>
+
+        <c-nav-item>
+          <a cNavLink disabled class="d-block d-lg-none d-xl-block">Disabled</a>
+        </c-nav-item>
+        <c-nav-item>
+          <a cNavLink routerLink="/auth/signup">Regisztráció</a>
+        </c-nav-item>
+        <c-nav-item>
+          <a cNavLink routerLink="/auth/login">Bejelentkezés</a>
+        </c-nav-item>
+      </c-navbar-nav>
+
+      <c-dropdown [popperOptions]="{ placement: 'bottom-start' }" variant="nav-item">
+        <button [caret]="false" cDropdownToggle class="py-0 pe-0" aria-label="Open user menu">
+          <c-avatar color="primary" textColor="white" status="success">ZS</c-avatar>
+        </button>
+        <ul cDropdownMenu class="pt-0 w-auto">
+          <ul cDropdownMenu>
+            <li>
+              <button cDropdownItem>
+                <svg cIcon name="cilContact" size="sm" title="Profile Icon"></svg>
+                Profil
+              </button>
+            </li>
+            <li>
+              <button cDropdownItem>
+                <svg cIcon name="cilAccountLogout" size="sm" title="Logout Icon"></svg>
+                Kijelentkezés
+              </button>
+            </li>
+          </ul>
+        </ul>
+      </c-dropdown>
+    </div>
+  </c-container>
+</c-navbar>
