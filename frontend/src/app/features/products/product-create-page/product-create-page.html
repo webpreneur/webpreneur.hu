@@ -1,0 +1,15 @@
+<c-container>
+    <c-row>
+        <h2>Új termék létrehozása</h2>
+    </c-row>
+    <c-row>
+        @if (loading()) { <div>Termék létrehozása…</div> }
+        @if (success()) {
+            <c-alert color="success">{{ success() }}</c-alert>
+        }
+        @if (error()) { <div class="text-danger">{{ error() }}</div> }
+    </c-row>
+    <c-row>
+        <webpreneur-product-form (submitted)="onSubmitted($event)"></webpreneur-product-form>
+    </c-row>
+</c-container>

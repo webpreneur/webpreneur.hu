@@ -1,0 +1,24 @@
+<form cForm [formGroup]="form" (ngSubmit)="submit()" novalidate>
+  <div class="mb-3">
+    <label cLabel for="inputName">Termék neve</label>
+    <input cFormControl id="inputName" type="text" formControlName="name" name="name"/>
+    @if (form.get('name')?.invalid && form.get('name')?.touched) {
+      <div cFormText class="text-danger">A termék neve kötelező</div>
+    }
+  </div>
+  <div class="mb-3">
+    <label cLabel for="inputDescription">Leírás</label>
+    <textarea cFormControl id="inputDescription" formControlName="description" name="description" rows="4"></textarea>
+    @if (form.get('description')?.invalid && form.get('description')?.touched) {
+      <div cFormText class="text-danger">A leírás kötelező</div>
+    }
+  </div>
+  <div class="mb-3">
+    <label cLabel for="inputPrice">Ár (Ft)</label>
+    <input cFormControl id="inputPrice" type="number" formControlName="price" name="price" min="0" step="0.01"/>
+    @if (form.get('price')?.invalid && form.get('price')?.touched) {
+      <div cFormText class="text-danger">Az ár kötelező és pozitív szám kell legyen</div>
+    }
+  </div>
+  <button cButton color="primary" type="submit" [disabled]="form.invalid" shape="rounded-pill">Termék létrehozása</button>
+</form>
