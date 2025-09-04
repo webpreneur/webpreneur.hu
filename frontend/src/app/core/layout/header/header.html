@@ -30,19 +30,25 @@
           <ul cDropdownMenu>
             <li>
               <a cDropdownItem routerLink="/products/create">
-                <svg cIcon name="cilContact" size="sm" title="Products Icon"></svg>
+                @if (isBrowser) {
+                  <svg cIcon name="cilContact" size="sm" title="Products Icon"></svg>
+                }
                 Termékek
               </a>
             </li>
             <li>
               <button cDropdownItem>
-                <svg cIcon name="cilContact" size="sm" title="Profile Icon"></svg>
+                @if (isBrowser) {
+                  <svg cIcon name="cilContact" size="sm" title="Profile Icon"></svg>
+                }
                 Profil
               </button>
             </li>
             <li>
               <button cDropdownItem>
-                <svg cIcon name="cilAccountLogout" size="sm" title="Logout Icon"></svg>
+                @if (isBrowser) {
+                  <svg cIcon name="cilAccountLogout" size="sm" title="Logout Icon"></svg>
+                }
                 Kijelentkezés
               </button>
             </li>

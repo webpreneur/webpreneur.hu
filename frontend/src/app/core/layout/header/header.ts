@@ -1,5 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID } from '@angular/core';
 import {
   AvatarComponent,
   CollapseDirective,
@@ -44,6 +46,11 @@ import { cilAccountLogout, cilContact } from '@coreui/icons';
 })
 export class Header {
   #iconSet = inject(IconSetService);
+  #platformId = inject(PLATFORM_ID);
+
+  get isBrowser(): boolean {
+    return isPlatformBrowser(this.#platformId);
+  }
 
   constructor() {
     this.#iconSet.icons = {
