@@ -16,12 +16,15 @@ export class ProductsService {
     console.log('userId:::', userId);
     console.log('merged data:::', { ...data, userId });
 
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     return await this.prisma.product.create({
       data: {
         ...data,
         userId,
       },
     });
+  }
+
+  async getProducts(): Promise<Product[]> {
+    return await this.prisma.product.findMany();
   }
 }

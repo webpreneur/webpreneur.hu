@@ -1,5 +1,6 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import type { Product } from '@prisma/client';
+
 import { CurrentUser } from 'src/auth/current-user.decorator';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import type { TokenPayload } from 'src/auth/token.payload.interface';
@@ -19,5 +20,11 @@ export class ProductsController {
     console.log('Controller - raw body:::', body);
     console.log('Controller - user:::', user);
     return await this.productsService.createProduct(body, user.userId);
+  }
+
+  @Get()
+  @UseGuards(JwtAuthGuard)
+  async getProducts(): Promise<Product[]> {
+    return await this.productsService.getProducts();
   }
 }
