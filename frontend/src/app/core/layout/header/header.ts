@@ -20,7 +20,7 @@ import {
 } from '@coreui/angular';
 
 import { IconDirective, IconSetService } from '@coreui/icons-angular';
-import { cilAccountLogout, cilContact } from '@coreui/icons';
+import { cilAccountLogout, cilContact, cilBasket } from '@coreui/icons';
 
 @Component({
   selector: 'webpreneur-header',
@@ -66,6 +66,7 @@ export class Header {
     this.#iconSet.icons = {
       cilAccountLogout,
       cilContact,
+      cilBasket,
     };
   }
 }
