@@ -20,5 +20,20 @@
       <div cFormText class="text-danger">Az ár kötelező és pozitív szám kell legyen</div>
     }
   </div>
+  <div class="mb-3">
+    <label cLabel for="inputImage">Termék képe</label>
+    <input 
+      cFormControl 
+      id="inputImage" 
+      type="file" 
+      accept="image/jpeg,image/jpg,image/png,image/webp" 
+      (change)="onFileSelected($event)"
+      class="form-control"
+    />
+    <div cFormText class="text-muted">JPEG, JPG, PNG, WEBP formátumok, maximum 500KB</div>
+    @if (selectedFile()) {
+      <div cFormText class="text-success mt-1">Kiválasztott fájl: {{ selectedFile()!.name }}</div>
+    }
+  </div>
   <button cButton color="primary" type="submit" [disabled]="form.invalid" shape="rounded-pill">Termék létrehozása</button>
 </form>

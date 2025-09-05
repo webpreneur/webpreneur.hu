@@ -32,4 +32,11 @@ export class Products {
       { id: number; name: string; description: string; price: number; userId: number }[]
     >(`${this.#apiBaseUrl}/products`);
   }
+
+  uploadProductImage(productId: number, imageFile: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('image', imageFile);
+    
+    return this.#http.post(`${this.#apiBaseUrl}/products/${productId}/image`, formData);
+  }
 }
