@@ -1,6 +1,7 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ButtonDirective, CardBodyComponent, CardComponent, CardHeaderComponent, ContainerComponent } from '@coreui/angular';
+
 import { Products } from '../data-access/products';
 
 @Component({
@@ -19,7 +20,7 @@ import { Products } from '../data-access/products';
 export class ProductListPage implements OnInit {
   readonly #productsService = inject(Products);
   
-  products: { id: number; name: string; description: string; price: number; userId: number }[] = [];
+  products = signal<{ id: number; name: string; description: string; price: number; userId: number }[]>([]);
 
   ngOnInit(): void {
     this.#loadProducts();
@@ -28,7 +29,8 @@ export class ProductListPage implements OnInit {
   #loadProducts(): void {
     this.#productsService.getProducts().subscribe({
       next: (products) => {
-        this.products = products;
+        console.log({products});
+        this.products.set(products);
       },
       error: (error) => {
         console.error('Error loading products:', error);
