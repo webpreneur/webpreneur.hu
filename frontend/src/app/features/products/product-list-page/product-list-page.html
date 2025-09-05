@@ -18,19 +18,19 @@
         <div class="row">
           @for (product of products(); track product.id) {
             <div class="col-md-6 col-lg-4 mb-3">
-              <c-card>
+              <c-card class="h-100" style="cursor: pointer;" [routerLink]="['/products', product.id]">
                 @if (product.imageUrl) {
                   <img [src]="apiBaseUrl + product.imageUrl" 
                        [alt]="product.name" 
                        class="card-img-top" 
                        style="height: 200px; object-fit: cover;">
                 }
-                <c-card-body>
+                <c-card-body class="d-flex flex-column">
                   <h5>{{ product.name }}</h5>
-                  <p class="text-muted">{{ product.description }}</p>
-                  <div class="d-flex justify-content-between align-items-center">
+                  <p class="text-muted flex-grow-1">{{ product.description }}</p>
+                  <div class="d-flex justify-content-between align-items-center mt-auto">
                     <strong class="text-success">{{ product.price }} Ft</strong>
-                    <button cButton color="outline-primary" size="sm">Szerkesztés</button>
+                    <button cButton color="outline-primary" size="sm" (click)="$event.stopPropagation()">Szerkesztés</button>
                   </div>
                 </c-card-body>
               </c-card>

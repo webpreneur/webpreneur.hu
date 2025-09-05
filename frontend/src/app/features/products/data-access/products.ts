@@ -33,6 +33,14 @@ export class Products {
     >(`${this.#apiBaseUrl}/products`);
   }
 
+  getProduct(id: number): Observable<
+    { id: number; name: string; description: string; price: number; userId: number; imageExists?: boolean; imageUrl?: string | null }
+  > {
+    return this.#http.get<
+      { id: number; name: string; description: string; price: number; userId: number; imageExists?: boolean; imageUrl?: string | null }
+    >(`${this.#apiBaseUrl}/products/${id}`);
+  }
+
   uploadProductImage(productId: number, imageFile: File): Observable<any> {
     const formData = new FormData();
     formData.append('image', imageFile);

@@ -1,0 +1,55 @@
+<c-container class="py-4">
+  @if (loading()) {
+    <div class="text-center py-4">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Betöltés...</span>
+      </div>
+    </div>
+  } @else if (error()) {
+    <c-card>
+      <c-card-body class="text-center py-4">
+        <div class="text-danger">
+          <h4>{{ error() }}</h4>
+          <button cButton color="primary" (click)="goBack()">Vissza a termékekhez</button>
+        </div>
+      </c-card-body>
+    </c-card>
+  } @else if (product()) {
+    <c-card>
+      <c-card-header class="d-flex justify-content-between align-items-center">
+        <h2 class="mb-0">{{ product()!.name }}</h2>
+        <button cButton color="outline-secondary" (click)="goBack()">
+          ← Vissza
+        </button>
+      </c-card-header>
+      <c-card-body>
+        <div class="row">
+          @if (product()!.imageUrl) {
+            <div class="col-md-6 mb-3">
+              <img [src]="apiBaseUrl + product()!.imageUrl" 
+                   [alt]="product()!.name" 
+                   class="img-fluid rounded shadow-sm"
+                   style="max-height: 400px; width: 100%; object-fit: cover;">
+            </div>
+          }
+          <div [class]="product()!.imageUrl ? 'col-md-6' : 'col-12'">
+            <div class="mb-4">
+              <h4 class="text-muted mb-2">Leírás</h4>
+              <p class="fs-5">{{ product()!.description }}</p>
+            </div>
+            
+            <div class="mb-4">
+              <h4 class="text-muted mb-2">Ár</h4>
+              <h2 class="text-success mb-0">{{ product()!.price }} Ft</h2>
+            </div>
+            
+            <div class="d-flex gap-2">
+              <button cButton color="primary" size="lg">Szerkesztés</button>
+              <button cButton color="outline-danger" size="lg">Törlés</button>
+            </div>
+          </div>
+        </div>
+      </c-card-body>
+    </c-card>
+  }
+</c-container>

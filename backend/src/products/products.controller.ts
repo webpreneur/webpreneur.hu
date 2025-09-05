@@ -9,17 +9,19 @@ import {
   UseGuards,
   UseInterceptors,
   BadRequestException,
+  Param,
 } from '@nestjs/common';
 import type { Product } from '@prisma/client';
 import { extname } from 'path';
 import { diskStorage } from 'multer';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 import { CurrentUser } from 'src/auth/current-user.decorator';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import type { TokenPayload } from 'src/auth/token.payload.interface';
 import { CreateProductRequest } from './dto/create-product.request';
 import { ProductsService } from './products.service';
-import { FileInterceptor } from '@nestjs/platform-express';
+import { PRODUCT_IMAGES } from './product-images';
 
 @Controller('products')
 export class ProductsController {
@@ -41,9 +43,9 @@ export class ProductsController {
   @UseInterceptors(
     FileInterceptor('image', {
       storage: diskStorage({
-        destination: 'public/products',
+        destination: PRODUCT_IMAGES,
         filename: (req, file, callback) => {
-          const filename = `${req.params.productId}${extname(file.originalname)}`;
+          const filename = `${req.params.productId}${extname(file.originalname).toLowerCase()}`;
           callback(null, filename);
         },
       }),
@@ -76,5 +78,11 @@ export class ProductsController {
   @UseGuards(JwtAuthGuard)
   async getProducts(): Promise<Product[]> {
     return await this.productsService.getProducts();
+  }
+
+  @Get(':productId')
+  @UseGuards(JwtAuthGuard)
+  async getProduct(@Param('productId') productId: string): Promise<Product> {
+    return await this.productsService.getProduct(parseInt(productId));
   }
 }

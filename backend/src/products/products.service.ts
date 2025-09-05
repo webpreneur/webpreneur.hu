@@ -1,24 +1,21 @@
 import { promises as fs } from 'fs';
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import type { Product } from '@prisma/client';
+import { join } from 'path';
 
 import { CreateProductRequest } from './dto/create-product.request';
 import { PrismaService } from 'src/prisma/prisma.service';
-import { join } from 'path';
+import { PRODUCT_IMAGES } from './product-images';
 
 @Injectable()
 export class ProductsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prismaService: PrismaService) {}
 
   async createProduct(
     data: CreateProductRequest,
     userId: number,
   ): Promise<Product> {
-    console.log('data:::', data);
-    console.log('userId:::', userId);
-    console.log('merged data:::', { ...data, userId });
-
-    return await this.prisma.product.create({
+    return await this.prismaService.product.create({
       data: {
         ...data,
         userId,
@@ -27,7 +24,7 @@ export class ProductsService {
   }
 
   async getProducts(): Promise<Product[]> {
-    const products = await this.prisma.product.findMany();
+    const products = await this.prismaService.product.findMany();
     return Promise.all(
       products.map(async (product) => {
         const imageInfo = await this.#imageExists(product.id);
@@ -35,11 +32,32 @@ export class ProductsService {
           ...product,
           imageExists: imageInfo.exists,
           imageUrl: imageInfo.exists
-            ? `/products/${product.id}${imageInfo.extension}`
+            ? `/images/products/${product.id}${imageInfo.extension}`
             : null,
         };
       }),
     );
+  }
+
+  async getProduct(
+    productId: number,
+  ): Promise<Product & { imageExists: boolean; imageUrl: string | null }> {
+    try {
+      return {
+        ...(await this.prismaService.product.findUniqueOrThrow({
+          where: {
+            id: productId,
+          },
+        })),
+        imageExists: (await this.#imageExists(productId)).exists,
+        imageUrl: (await this.#imageExists(productId)).exists
+          ? `/images/products/${productId}${(await this.#imageExists(productId)).extension}`
+          : null,
+      };
+    } catch (error) {
+      console.error(error);
+      throw new NotFoundException(`Product "${productId}" id not found`);
+    }
   }
 
   async #imageExists(
@@ -48,14 +66,17 @@ export class ProductsService {
     const extensions = ['.jpg', '.jpeg', '.png', '.webp'];
 
     for (const ext of extensions) {
-      try {
-        await fs.access(
-          join(__dirname, '../../', 'public', 'products', `${productId}${ext}`),
-          fs.constants.F_OK,
-        );
-        return { exists: true, extension: ext };
-      } catch {
-        // Continue to next extension
+      // Check both lowercase and uppercase extensions
+      for (const extension of [ext.toLowerCase(), ext.toUpperCase()]) {
+        try {
+          await fs.access(
+            join(`${PRODUCT_IMAGES}/${productId}${extension}`),
+            fs.constants.F_OK,
+          );
+          return { exists: true, extension };
+        } catch {
+          // Continue to next extension
+        }
       }
     }
 
