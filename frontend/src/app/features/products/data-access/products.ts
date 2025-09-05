@@ -26,10 +26,10 @@ export class Products {
   }
 
   getProducts(): Observable<
-    { id: number; name: string; description: string; price: number; userId: number }[]
+    { id: number; name: string; description: string; price: number; userId: number; imageExists?: boolean; imageUrl?: string | null }[]
   > {
     return this.#http.get<
-      { id: number; name: string; description: string; price: number; userId: number }[]
+      { id: number; name: string; description: string; price: number; userId: number; imageExists?: boolean; imageUrl?: string | null }[]
     >(`${this.#apiBaseUrl}/products`);
   }
 

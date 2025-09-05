@@ -19,6 +19,12 @@
           @for (product of products(); track product.id) {
             <div class="col-md-6 col-lg-4 mb-3">
               <c-card>
+                @if (product.imageUrl) {
+                  <img [src]="apiBaseUrl + product.imageUrl" 
+                       [alt]="product.name" 
+                       class="card-img-top" 
+                       style="height: 200px; object-fit: cover;">
+                }
                 <c-card-body>
                   <h5>{{ product.name }}</h5>
                   <p class="text-muted">{{ product.description }}</p>
