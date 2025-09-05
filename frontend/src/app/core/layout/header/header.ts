@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { isPlatformBrowser } from '@angular/common';
 import { PLATFORM_ID } from '@angular/core';
+import { Auth } from '../../auth/auth';
 import {
   AvatarComponent,
   CollapseDirective,
@@ -47,9 +48,18 @@ import { cilAccountLogout, cilContact } from '@coreui/icons';
 export class Header {
   #iconSet = inject(IconSetService);
   #platformId = inject(PLATFORM_ID);
+  #authService = inject(Auth);
 
   get isBrowser(): boolean {
     return isPlatformBrowser(this.#platformId);
+  }
+
+  get isAuthenticated() {
+    return this.#authService.isAuthenticated;
+  }
+
+  logout(): void {
+    this.#authService.logout().subscribe();
   }
 
   constructor() {

@@ -2,7 +2,8 @@ import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/cor
 import { ContainerComponent, AlertComponent, RowComponent } from '@coreui/angular';
 
 import { LoginForm } from '../ui/login-form/login-form';
-import { Users } from '../../data-access/users';
+import { Auth } from '../../../../core/auth/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'webpreneur-login-page',
@@ -16,16 +17,30 @@ export class LoginPage {
   readonly error = signal<string | null>(null);
   readonly success = signal<string | null>(null);
 
-  readonly #users = inject(Users);
+  readonly #auth = inject(Auth);
+  readonly #router = inject(Router);
 
   onSubmitted(credentials: { email: string; password: string }): void {
     this.loading.set(true);
     this.error.set(null);
     this.success.set(null);
-    this.#users.loginUser(credentials).subscribe({
+    
+    // Map email to username for Auth service
+    const authCredentials = {
+      email: credentials.email,
+      password: credentials.password
+    };
+    
+    console.log('Sending login credentials:', { email: credentials.email, password: '***' });
+    
+    this.#auth.login(authCredentials).subscribe({
       next: () => {
         this.loading.set(false);
         this.success.set('Sikeres bejelentkezés');
+        // Redirect to home page after successful login
+        setTimeout(() => {
+          this.#router.navigate(['/']);
+        }, 1500);
       },
       error: (err: unknown) => {
         const message =

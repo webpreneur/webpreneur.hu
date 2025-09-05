@@ -14,15 +14,18 @@
         <c-nav-item>
           <a cNavLink disabled class="d-block d-lg-none d-xl-block">Disabled</a>
         </c-nav-item>
-        <c-nav-item>
-          <a cNavLink routerLink="/auth/signup">Regisztráció</a>
-        </c-nav-item>
-        <c-nav-item>
-          <a cNavLink routerLink="/auth/login">Bejelentkezés</a>
-        </c-nav-item>
+        @if (!isAuthenticated()) {
+          <c-nav-item>
+            <a cNavLink routerLink="/auth/signup">Regisztráció</a>
+          </c-nav-item>
+          <c-nav-item>
+            <a cNavLink routerLink="/auth/login">Bejelentkezés</a>
+          </c-nav-item>
+        }
       </c-navbar-nav>
 
-      <c-dropdown [popperOptions]="{ placement: 'bottom-start' }" variant="nav-item">
+      @if (isAuthenticated()) {
+        <c-dropdown [popperOptions]="{ placement: 'bottom-start' }" variant="nav-item">
         <button [caret]="false" cDropdownToggle class="py-0 pe-0" aria-label="Open user menu">
           <c-avatar color="primary" textColor="white" status="success">ZS</c-avatar>
         </button>
@@ -45,7 +48,7 @@
               </button>
             </li>
             <li>
-              <button cDropdownItem>
+              <button cDropdownItem (click)="logout()">
                 @if (isBrowser) {
                   <svg cIcon name="cilAccountLogout" size="sm" title="Logout Icon"></svg>
                 }
@@ -54,7 +57,8 @@
             </li>
           </ul>
         </ul>
-      </c-dropdown>
+        </c-dropdown>
+      }
     </div>
   </c-container>
 </c-navbar>
