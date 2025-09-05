@@ -29,10 +29,10 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SignupForm {
-  private readonly fb = inject(NonNullableFormBuilder);
+  readonly #fb = inject(NonNullableFormBuilder);
   @Output() readonly submitted = new EventEmitter<{ email: string; password: string }>();
 
-  readonly form = this.fb.group({
+  readonly form = this.#fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(8)]],
     terms: [false, [Validators.requiredTrue]],

@@ -23,10 +23,10 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProductForm {
-  private readonly fb = inject(NonNullableFormBuilder);
+  readonly #fb = inject(NonNullableFormBuilder);
   readonly submitted = output<{ name: string; description: string; price: number }>();
 
-  readonly form = this.fb.group({
+  readonly form = this.#fb.group({
     name: ['', [Validators.required]],
     description: ['', [Validators.required]],
     price: [0, [Validators.required, Validators.min(0)]],

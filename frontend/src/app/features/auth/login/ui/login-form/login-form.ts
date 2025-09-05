@@ -21,10 +21,10 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginForm {
-  private readonly fb = inject(NonNullableFormBuilder);
+  readonly #fb = inject(NonNullableFormBuilder);
   readonly submitted = output<{ email: string; password: string }>();
 
-  readonly form = this.fb.group({
+  readonly form = this.#fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
   });

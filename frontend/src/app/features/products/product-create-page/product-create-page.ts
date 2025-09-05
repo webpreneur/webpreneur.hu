@@ -12,16 +12,17 @@ import { Products } from '../data-access/products';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductCreatePage {
-  private readonly products = inject(Products);
   readonly loading = signal(false);
   readonly error = signal<string | null>(null);
   readonly success = signal<string | null>(null);
+
+  readonly #products = inject(Products);
 
   onSubmitted(productData: { name: string; description: string; price: number }): void {
     this.loading.set(true);
     this.error.set(null);
     this.success.set(null);
-    this.products.createProduct(productData).subscribe({
+    this.#products.createProduct(productData).subscribe({
       next: () => {
         this.loading.set(false);
         this.success.set('Termék sikeresen létrehozva');

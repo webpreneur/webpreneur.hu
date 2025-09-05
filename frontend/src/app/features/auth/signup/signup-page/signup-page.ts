@@ -12,16 +12,17 @@ import { Users } from '../../data-access/users';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SignupPage {
-  private readonly users = inject(Users);
   readonly loading = signal(false);
   readonly error = signal<string | null>(null);
   readonly success = signal<string | null>(null);
+
+  readonly #users = inject(Users);
 
   onSubmitted(credentials: { email: string; password: string }): void {
     this.loading.set(true);
     this.error.set(null);
     this.success.set(null);
-    this.users.createUser(credentials).subscribe({
+    this.#users.createUser(credentials).subscribe({
       next: () => {
         this.loading.set(false);
         this.success.set('Account created successfully. You can now sign in.');
